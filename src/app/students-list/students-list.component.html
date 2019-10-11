@@ -1,0 +1,69 @@
+<div style="text-align:center">
+        <h1 class="title-page">
+          Welcome to {{ title }}
+        </h1>
+      </div>
+
+      <div class="list-container-padding">
+          <mat-toolbar-row>
+        <button mat-raised-button color="accent" class="buttons">
+          Llamar a lista
+        </button>
+        <button mat-raised-button class="buttons cyan-butt" routerLink="/randomQuiz" routerLinkActive="active">
+            Random quiz
+        </button>
+        <span class="opts-spacer"></span>
+        <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons" (click)="openDialog()">
+            <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons">
+            <mat-icon>date_range</mat-icon>
+        </button>
+        <!--
+          <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons">
+            <mat-icon>how_to_reg</mat-icon>
+        </button>
+        -->
+      </mat-toolbar-row>
+
+      <table class="table-style">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+          </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of students | async">
+                  <td>{{item.code}}</td>
+                  <td>{{item.name}}</td>
+                </tr>
+          </tbody>
+        </table>
+
+      <!--
+      <h3>Student List</h3>
+      <h3>Attendance Today</h3>
+      <div class="flex-container">
+        <div class="flex-container studentList">
+          <mat-card class="example-card" *ngFor="let item of students | async">
+            <mat-card-header>
+              <mat-card-title>{{item.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-actions>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        
+        <div class="flex-container studentList">  
+          <mat-card class="example-card" *ngFor="let item of todayAttendance | async" id="attendance">
+            <mat-card-header>
+              <mat-card-title>{{item.name}}</mat-card-title>
+            </mat-card-header>
+            <mat-card-actions>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+      -->
+      

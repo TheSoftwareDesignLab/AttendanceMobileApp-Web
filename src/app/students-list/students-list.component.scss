@@ -1,0 +1,74 @@
+.title-page{
+    margin-top: 4%;
+}
+
+table.table-style {
+    font-size: 11px;
+    color: #333333;
+    border-collapse: collapse;
+}
+
+table.table-style th {
+    border-width: 1px;
+    padding: 8px;
+    background-color: rgb(237, 241, 239)
+}
+
+table.table-style tr:hover td {
+    background-color: #DFEBF1;
+}
+
+table.table-style td {
+    border-width: 1px;
+    padding: 8px;
+    background-color: #ffffff;
+}
+
+table {
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.list-container-padding{
+    padding-left: 7%;
+    padding-right: 7%;
+}
+
+.buttons{
+    margin-right: 8px;
+}
+
+.cyan-butt{
+    background-color: rgb(107, 223, 223);
+}
+
+.icon-buttons {
+    padding: 0 14px;
+}
+
+.opts-spacer {
+    flex: 1 1 auto;
+}
+
+.studentList{
+    display: inline-block;
+    width: 40%;
+    padding: 5%;
+}
+
+h3 {
+    display: inline-block;
+    width: 40%;
+    padding: 5%;
+    text-align: center;
+}
+
+#attendance {
+    background-color: #17B358;
+    color: white;
+}
+

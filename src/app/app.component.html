@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="navbar">
+  <div class="toolbar-element-left" routerLink="/" routerLinkActive="active">Attendance app</div>
+  <div class="search-form">
+          <mat-form-field class="search-form-full-width" appearance="outline">
+            <input type="text" placeholder="Search your course" aria-label="Course" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <button mat-button id="search-button" routerLink="/studentsList" routerLinkActive="active">
+              Go!
+          </button>
+  </div>
+  <div class="toolbar-element-right">
+      <button mat-raised-button color="accent">
+          Sign in
+      </button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

@@ -1,0 +1,79 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+//2C3E50
+$primary: mat-palette($mat-blue-grey, 800);
+$accent:  mat-palette($mat-light-blue, 900);
+//$acc :    mat-palette($mat-cyan, 200);
+$warn:    mat-palette($mat-red);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+
+// Include theme styles for core and each component used in your app.
+@include angular-material-theme($theme);
+
+body{
+    margin:0;
+    font-family: Open Sans, sans-serif;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-actions {
+    text-align:center;
+}
+
+.mat-form-field-infix {
+    top: -0.25em;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-prefix,
+.mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: -0.25em !important;
+    color: paleturquoise;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+
+    opacity: 10%;
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+
+    display: flex;
+    position: absolute;
+    top: .25em;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-color: white;
+}
+
+input.mat-input-element {
+    margin-top: -.0625em;
+    color: black;
+}
+
+.mat-form-field-disabled .mat-form-field-suffix {
+    display: none;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-label {
+    margin-top: 0em;
+}
+
+.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button {
+    top: 0.4em;
+}
+
+.multiple-field-name {
+    flex-grow: 1;
+    margin: 0 1rem 1rem 1rem;
+}

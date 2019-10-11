@@ -1,0 +1,26 @@
+body {
+    font: sans-serif;
+}
+button {
+    font-size: 16pt;
+}
+#result {
+    font-size: 50pt;
+    width: 50%;
+    float: left;
+}
+.option {
+    font-size: 13pt;
+    fill: steelblue;
+    font-family: sans-serif;
+}
+#drawnBox {
+    width: 40%;
+    float:left;
+}
+.option.drawn {
+    fill: grey;
+}
+.option.selected, .option.selected.drawn {
+    fill: red;
+}
