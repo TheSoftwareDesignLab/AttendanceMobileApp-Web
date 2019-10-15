@@ -5,8 +5,8 @@
 @include mat-core();
 
 //2C3E50
-$primary: mat-palette($mat-blue-grey, 800);
-$accent:  mat-palette($mat-light-blue, 900);
+$primary: mat-palette($mat-grey, 900);
+$accent:  mat-palette($mat-yellow, 500);
 //$acc :    mat-palette($mat-cyan, 200);
 $warn:    mat-palette($mat-red);
 

@@ -11,11 +11,12 @@ table.table-style {
 table.table-style th {
     border-width: 1px;
     padding: 8px;
-    background-color: rgb(237, 241, 239)
+    background-color: rgb(31, 32, 32);
+    color: #ffffff;
 }
 
 table.table-style tr:hover td {
-    background-color: #DFEBF1;
+    background-color: rgb(243, 242, 215);
 }
 
 table.table-style td {
