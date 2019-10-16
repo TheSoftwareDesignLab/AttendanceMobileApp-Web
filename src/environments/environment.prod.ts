@@ -1,12 +1,13 @@
 export const environment = {
   firebaseConfig: {
-    apiKey: "AIzaSyAhjhDT-6kyxKnWRCVQl5Fheo5aWkgW82w",
-    authDomain: "attendancelistapp-8c775.firebaseapp.com",
-    databaseURL: "https://attendancelistapp-8c775.firebaseio.com",
-    projectId: "attendancelistapp",
-    storageBucket: "attendancelistapp.appspot.com",
-    messagingSenderId: "550893371365",
-    appId: "1:550893371365:web:3fd6fac39df468da"
+    apiKey: "AIzaSyC2trqEnwAfL2ORHessZSu4FTQJoYcxifs",
+    authDomain: "attendancemobileapp.firebaseapp.com",
+    databaseURL: "https://attendancemobileapp.firebaseio.com",
+    projectId: "attendancemobileapp",
+    storageBucket: "attendancemobileapp.appspot.com",
+    messagingSenderId: "943183185494",
+    appId: "1:943183185494:web:ddad4e9a2623c87117ddf7",
+    measurementId: "G-VW535GXG0P"
   },
   production: true
 };

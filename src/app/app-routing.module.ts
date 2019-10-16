@@ -7,7 +7,7 @@ import { RandomQuizComponent } from './random-quiz/random-quiz.component';
 
 const routes: Routes = [
   {path:'', component: LandingPageComponent},
-  {path:'studentsList', component: StudentsListComponent},
+  {path:'studentsList/:courseID', component: StudentsListComponent},
   {path:'randomQuiz', component: RandomQuizComponent}
 ];
 

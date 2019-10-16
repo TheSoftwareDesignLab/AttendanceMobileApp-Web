@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators'
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,16 @@ import {map, startWith} from 'rxjs/operators'
 })
 export class AppComponent implements OnInit {
   myControl = new FormControl();
-  options: string[] = ['Mobile App development- S1', 'Mobile App development- S2'];
+  options: string[];
   filteredOptions: Observable<string[]>;
+  constructor(private db: AngularFirestore) {
+    this.options = [];
+    db.collection('professors').doc("m.linaresv@uniandes.edu.co").collection('courses').valueChanges().subscribe(course => {
+      course.forEach(element =>{
+        this.options.push(element.courseCode);
+      })
+    });
+  }
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
@@ -21,9 +30,11 @@ export class AppComponent implements OnInit {
       );
   }
 
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
+  
 }
