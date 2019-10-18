@@ -1,49 +1,55 @@
 <div style="text-align:center">
-        <h1 class="title-page">
-          Welcome to {{ title }}
-        </h1>
-      </div>
+  <h1 class="title-page">Welcome to {{ title }}</h1>
+</div>
 
-      <div class="list-container-padding">
-          <mat-toolbar-row>
-
-        <button mat-raised-button color="accent" routerLink="/randomQuiz" routerLinkActive="active">
-            Random quiz
-        </button>
-        <span class="opts-spacer"></span>
-        <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons" (click)="openDialog()">
-            <mat-icon>person_add</mat-icon>
-        </button>
-        <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons">
-            <mat-icon>date_range</mat-icon>
-        </button>
-        <!--
+<div class="list-container-padding">
+  <mat-toolbar-row>
+    <button mat-raised-button color="accent" (click)="randomQuiz()">
+      Random quiz
+    </button>
+    <span class="opts-spacer"></span>
+    <button
+      mat-icon-button
+      aria-label="Example icon-button with a heart icon"
+      class="icon-buttons"
+      (click)="openDialog()"
+    >
+      <mat-icon>person_add</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      aria-label="Example icon-button with a heart icon"
+      class="icon-buttons"
+    >
+      <mat-icon>date_range</mat-icon>
+    </button>
+    <!--
           <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons">
             <mat-icon>how_to_reg</mat-icon>
         </button>
         -->
-      </mat-toolbar-row>
+  </mat-toolbar-row>
 
-      <table class="table-style">
-          <thead>
-          <tr>
-            <th>Code</th>
-            <th>Email</th>
-            <th>First Name</th>
-            <th>Assistance percentaje</th>
-          </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let item of students | async">
-                  <td>{{item.code}}</td>
-                  <td>{{item.email}}</td>
-                  <td>{{item.name}}</td>
-                  <td>{{item.assistancePercentaje+"%"}}</td>
-                </tr>
-          </tbody>
-        </table>
+  <table class="table-style">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Email</th>
+        <th>First Name</th>
+        <th>Assistance percentaje</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of students | async">
+        <td>{{ item.code }}</td>
+        <td>{{ item.email }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.assistancePercentaje + '%' }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-      <!--
+  <!--
       <h3>Student List</h3>
       <h3>Attendance Today</h3>
       <div class="flex-container">
@@ -68,4 +74,4 @@
         </div>
       </div>
       -->
-      
+</div>

@@ -1,127 +1,138 @@
-import { Component, ElementRef, OnInit} from '@angular/core';
-import * as d3 from 'd3';
+import { Component, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
 
+import * as p5 from 'p5';
 @Component({
   selector: 'app-random-quiz',
   templateUrl: './random-quiz.component.html',
   styleUrls: ['./random-quiz.component.scss']
 })
-export class RandomQuizComponent {
-  private chartContainer: ElementRef;
+export class RandomQuizComponent implements OnInit, OnDestroy {
+  course: string;
+  students: any[];
 
-  data;
-  svg;
-  contentWidth;
-  contentHeight;
-  angleScale;
-  allOptions;
-  optionsLeft;
-  optionsDrawn;
-  width;
-  height;
-  endAngle;
-
-  margin = {top: 20, right: 20, bottom: 30, left: 40};
-
-  constructor() { 
-    this.data = d3.shuffle([
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"},
-      {"name":"GOMEZ CUBILLOS, VIVIAN NATALIA"}
-    ]);
-
-    this.allOptions = this.data.map(function (d, i) {
-      return {name:d, id:i, drawn:false};
+  constructor(private db: AngularFirestore, private route: ActivatedRoute) {
+    this.students = [];
+    this.route.paramMap.subscribe(params => {
+      this.course = params.get('courseID');
     });
-    this.optionsLeft = this.allOptions.map(function (d) { return d; });
-    this.optionsDrawn = [];
-    
-    
-    this.width = 800;
-    this.height = 800;
-    this.endAngle = 360 - 360/this.data.length ;
 
-    this.svg = d3.select('svg').append('svg')
-        .attr('width', this.width)
-        .attr('height', this.height);
-
-    this.angleScale = d3.scaleLinear()
-    .domain([0, this.data.length-1])
-    .range([0,360 - 360/this.data.length]);
-
-    d3.select("#btnChoose")
-    .on("click", this.onChooseM);
+    db.collection('2019-20')
+      .doc(this.course + '')
+      .collection('students')
+      .valueChanges()
+      .subscribe(
+        x => {
+          this.students = x;
+        },
+        e => {},
+        () => {}
+      );
   }
-  
-  redraw(options) {
-    var optionsSel = this.svg.selectAll(".option")
-      .data(options);
-  
-    optionsSel.enter()
-      .append("text")
-      .attr("class", "option");
-  
-    optionsSel
-      // .attr("x", width/2)
-      // .attr("y", height/2)
-      .attr("id", function (d) { return "id"+ d.id; })
-      .classed("drawn", function(d) { return d.drawn; })
-      .text(function(d) { return d.name; })
-      .transition().duration(1000)
-      .attr("transform", function (d) {
-        return "translate(" + 800/2 + "," + 800/2  +
-          ") rotate(" + this.angleScale(d.id) + ")" +
-          ", translate(30,0)";
-      });
-  
-    optionsSel.exit().remove();
-  
+  private p5;
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.course = params.get('courseID');
+    });
+    this.createCanvas();
   }
-  
-  //this.redraw(this.allOptions);
-  
-  onChooseM() {
-    var sel = Math.floor(Math.random() * this.optionsLeft.length);
-    var optionSel = this.optionsLeft.splice(sel, 1)[0];
-  
-    if(optionSel === undefined) {
-      console.log("No more options left");
-      alert("No more options left");  // Optional
+
+  ngOnDestroy(): void {
+    this.destroyCanvas();
+  }
+
+  private destroyCanvas = () => {
+    this.p5.noCanvas();
+  };
+
+  createCanvas() {
+    this.p5 = new p5(this.sketch);
+  }
+
+  private sketch = (p: any) => {
+    let velocity = 0;
+    let force = 0.05;
+    let initialRotation = p.random(0, p.TWO_PI);
+    let students = this.students;
+    p.setup = () => {
+      p.createCanvas(800, 800).parent('sketch-holder');
+      p.textSize(16);
+    };
+
+    p.draw = () => {
+      if (this.students.length == 0) {
+        p.text('Loading...', 10, 30);
+      } else {
+        // students = [
+        //   { name: 'andres' },
+        //   { name: 'lucas' },
+        //   { name: 'sebastian' },
+        //   { name: 'andres2' },
+        //   { name: 'lucas3' },
+        //   { name: 'sebastian4' }
+        // ];
+        students = this.students;
+        p.background(254, 237, 54);
+        p.textStyle(p.BOLD);
+        p.text('press enter to spin the Wheel!', 10, 10);
+        p.translate(p.width / 2, p.height / 2);
+        let wheel = new Wheel(0, 0, 750, students.length);
+        wheel.draw();
+        p.push();
+        p.stroke(255, 0, 0);
+        p.strokeWeight(2);
+        p.line(p.width / 2, 0, p.width / 4, 0);
+        p.pop();
+
+        if (velocity <= 0) {
+          velocity = 0;
+        } else {
+          velocity = velocity - velocity * force;
+        }
+      }
+    };
+
+    p.keyPressed = () => {
+      if (p.keyCode === p.ENTER) {
+        velocity += p.random(1000, 4000);
+        initialRotation = p.random(0, p.TWO_PI);
+      }
+    };
+
+    class Wheel {
+      cx: any;
+      cy: any;
+      r: any;
+      numSpokes: any;
+
+      constructor(cx, cy, r, numSpokes) {
+        this.cx = cx;
+        this.cy = cy;
+        this.r = r;
+        this.numSpokes = numSpokes;
+      }
+
+      draw() {
+        p.push();
+        p.rotate(0);
+        p.rotate(initialRotation);
+        p.rotate(p.radians(velocity));
+        p.ellipse(0, 0, this.r);
+        let dist = 360 / this.numSpokes;
+        for (let i = 0; i < this.numSpokes; i++) {
+          let dir = p5.Vector.fromAngle(p.radians(dist * i));
+          p.push();
+          p.rotate(dir.heading());
+          let readout = students[i].name;
+          p.textStyle(p.BOLD);
+          p.text(readout, this.r / 5, 0);
+          p.pop();
+          p.line(0, 0, (dir.x * this.r) / 2, (dir.y * this.r) / 2);
+        }
+        p.pop();
+      }
     }
-  
-    optionSel.drawn = true;
-    this.optionsDrawn = [optionSel].concat(this.optionsDrawn);
-    this.angleScale
-      .range([0, this.endAngle]);
-    var selAngle = this.angleScale(optionSel.id);
-  
-    console.log("sel="+ sel +" angle="+selAngle + " option " + optionSel.name);
-  
-    this.angleScale.range([-selAngle, this.endAngle-selAngle]);
-    console.log("#id "+sel);
-    d3.selectAll(".option")
-      .classed("selected", false);
-
-    this.redraw(this.allOptions);
-    console.log("#id" + optionSel.id);
-    d3.select("#id" + optionSel.id)
-      .classed("selected", true);
-  
-    const drawn = d3.select("#drawn").selectAll(".drawn")
-      .data(this.optionsDrawn);
-  
-    drawn.enter()
-      .append("p");
-    drawn
-      .attr("class", "drawn")
-      .text(this.data.name);
-    drawn.exit().remove();
-  }
+  };
 }
