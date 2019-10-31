@@ -8,6 +8,10 @@
       Wheel of fortune
     </button>
     <span class="opts-spacer"></span>
+    <button mat-raised-button color="accent" (click)="darBase()">
+      General
+    </button>
+    <span class="opts-spacer"></span>
     <button
       mat-icon-button
       aria-label="Example icon-button with a heart icon"
@@ -16,7 +20,7 @@
     >
       <mat-icon>person_add</mat-icon>
     </button>
-
+    <span class="opts-spacer"></span>
     <mat-form-field color="accent">
       <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -36,7 +40,7 @@
         <th>Code</th>
         <th>Email</th>
         <th>First Name</th>
-        <th>Assistance percentaje</th>
+        <th *ngIf = "isBase">Assistance percentaje</th>
       </tr>
     </thead>
     <tbody>
@@ -44,7 +48,7 @@
         <td>{{ item.code }}</td>
         <td>{{ item.email }}</td>
         <td>{{ item.name }}</td>
-        <td>{{ item.assistancePercentaje + '%' }}</td>
+        <td *ngIf = "isBase"> {{ item.assistancePercentaje + '%' }}</td>
       </tr>
     </tbody>
   </table>

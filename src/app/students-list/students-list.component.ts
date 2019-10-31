@@ -21,19 +21,24 @@ export class StudentsListComponent {
   todayAttendance: Observable<any[]>;
   course: string;
   day: Date;
+  db: AngularFirestore;
+  isBase: boolean;
 
   constructor(
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private db: AngularFirestore,
+    private dbp: AngularFirestore,
     private formBuilder: FormBuilder,
     public errorMessagesService: ErrorMessagesService,
-    private router: Router
+    private router: Router,
   ) {
+    this.db = dbp;
+    this.isBase = true;
+    this.day = new Date();
     this.route.paramMap.subscribe(params => {
       this.course = params.get('courseID');
     });
-    this.students = db
+    this.students = this.db
       .collection('2019-20')
       .doc(this.course + '')
       .collection('students')
@@ -53,10 +58,21 @@ export class StudentsListComponent {
     });
   }
 
-  addEvent(event: MatDatepickerInputEvent<Date>) {
-    let x  = event.value;
-    this.day.setTime(x.getTime());
-    console.log(this.day.toUTCString);
+  addEvent = (type: string, event: MatDatepickerInputEvent<Date>) => {
+    if (type == "input"){
+      this.isBase = false;
+      let x  = event.value;
+      this.day.setTime(x.getTime());
+      console.log(`${this.day.getDate()}-${this.day.getMonth()+ 1 }-${this.day.getFullYear()}`)
+      this.students = this.db
+      .collection('2019-20')
+      .doc(this.course + '')
+      .collection('attendance')
+      .doc(`${this.day.getDate()}-${this.day.getMonth() + 1}-${this.day.getFullYear()}`)
+      .collection('students')
+      .valueChanges();
+    }
+
   }
 
   ngOnInit() {
@@ -73,5 +89,14 @@ export class StudentsListComponent {
     this.route.paramMap.subscribe(params => {
       this.router.navigateByUrl(`randomQuiz/${params.get('courseID')}`);
     });
+  }
+
+  darBase() {
+    this.isBase = true;
+    this.students = this.db
+    .collection('2019-20')
+    .doc(this.course + '')
+    .collection('students')
+    .valueChanges();
   }
 }
