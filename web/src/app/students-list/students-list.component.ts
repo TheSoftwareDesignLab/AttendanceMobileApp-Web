@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule,ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -12,7 +12,8 @@ import { NewStudentDialogComponent } from '../new-student-dialog/new-student-dia
 @Component({
   selector: 'app-students-list',
   templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.scss']
+  styleUrls: ['./students-list.component.scss',],
+  encapsulation: ViewEncapsulation.None,
 })
 export class StudentsListComponent {
   title = 'Attendance List';
@@ -58,12 +59,18 @@ export class StudentsListComponent {
     });
   }
 
+  dateClass = (d: Date) => {
+    const date = d.getDate();
+    console.log(date)
+    // Highlight the 1st and 20th day of each month.
+    return (date === 1 || date === 20) ? 'custom-date' : undefined;
+  }
+
   addEvent = (type: string, event: MatDatepickerInputEvent<Date>) => {
     if (type == "input"){
       this.isBase = false;
       let x  = event.value;
       this.day.setTime(x.getTime());
-      console.log(`${this.day.getDate()}-${this.day.getMonth()+ 1 }-${this.day.getFullYear()}`)
       this.students = this.db
       .collection('2019-20')
       .doc(this.course + '')

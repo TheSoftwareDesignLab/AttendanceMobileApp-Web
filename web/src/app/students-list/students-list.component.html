@@ -22,9 +22,9 @@
     </button>
     <span class="opts-spacer"></span>
     <mat-form-field color="accent">
-      <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)">
+      <input matInput [matDatepicker]="picker" placeholder="selecciona un dia " (dateInput)="addEvent('input', $event)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
+      <mat-datepicker [dateClass]="dateClass" #picker></mat-datepicker>
     </mat-form-field>
 
     <!--
