@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog} from '@angular/material';
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import { ErrorMessagesService } from '../errors/error-messages.service';
 import { NewStudentDialogComponent } from '../new-student-dialog/new-student-dialog.component';
+
 
 @Component({
   selector: 'app-students-list',
@@ -18,6 +20,7 @@ export class StudentsListComponent {
   students: Observable<any[]>;
   todayAttendance: Observable<any[]>;
   course: string;
+  day: Date;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +30,6 @@ export class StudentsListComponent {
     public errorMessagesService: ErrorMessagesService,
     private router: Router
   ) {
-    const today = new Date();
     this.route.paramMap.subscribe(params => {
       this.course = params.get('courseID');
     });
@@ -49,6 +51,12 @@ export class StudentsListComponent {
         ]
       ]
     });
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    let x  = event.value;
+    this.day.setTime(x.getTime());
+    console.log(this.day.toUTCString);
   }
 
   ngOnInit() {

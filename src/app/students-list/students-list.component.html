@@ -5,7 +5,7 @@
 <div class="list-container-padding">
   <mat-toolbar-row>
     <button mat-raised-button color="accent" (click)="randomQuiz()">
-      Random quiz
+      Wheel of fortune
     </button>
     <span class="opts-spacer"></span>
     <button
@@ -16,13 +16,13 @@
     >
       <mat-icon>person_add</mat-icon>
     </button>
-    <button
-      mat-icon-button
-      aria-label="Example icon-button with a heart icon"
-      class="icon-buttons"
-    >
-      <mat-icon>date_range</mat-icon>
-    </button>
+
+    <mat-form-field color="accent">
+      <input matInput [matDatepicker]="picker" (dateInput)="addEvent('input', $event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
     <!--
           <button mat-icon-button aria-label="Example icon-button with a heart icon" class="icon-buttons">
             <mat-icon>how_to_reg</mat-icon>

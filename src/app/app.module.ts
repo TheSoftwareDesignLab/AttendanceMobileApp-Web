@@ -11,7 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatFormFieldModule,
-         MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule} from '@angular/material/';
+         MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule  } from '@angular/material/';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { NewStudentDialogComponent } from './new-student-dialog/new-student-dialog.component';
@@ -29,6 +29,8 @@ import { RandomQuizComponent } from './random-quiz/random-quiz.component'
     NewStudentDialogComponent,
   ],
   imports: [
+    MatDatepickerModule,        
+    MatNativeDateModule,    
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'my-app-name'),
