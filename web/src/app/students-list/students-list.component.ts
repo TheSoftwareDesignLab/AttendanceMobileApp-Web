@@ -1,29 +1,29 @@
-import { Component, OnInit, NgModule,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, NgModule, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog} from '@angular/material';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { ErrorMessagesService } from '../errors/error-messages.service';
 import { NewStudentDialogComponent } from '../new-student-dialog/new-student-dialog.component';
-
 
 @Component({
   selector: 'app-students-list',
   templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.scss',],
-  encapsulation: ViewEncapsulation.None,
+  styleUrls: ['./students-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StudentsListComponent {
   title = 'Attendance List';
   studentForm: FormGroup;
   students: Observable<any[]>;
-  todayAttendance: Observable<any[]>;
+  dates: Observable<any[]>;
   course: string;
   day: Date;
   db: AngularFirestore;
   isBase: boolean;
+  datesList: String[];
 
   constructor(
     private route: ActivatedRoute,
@@ -31,19 +31,39 @@ export class StudentsListComponent {
     private dbp: AngularFirestore,
     private formBuilder: FormBuilder,
     public errorMessagesService: ErrorMessagesService,
-    private router: Router,
+    private router: Router
   ) {
+    this.datesList = [];
     this.db = dbp;
     this.isBase = true;
     this.day = new Date();
     this.route.paramMap.subscribe(params => {
       this.course = params.get('courseID');
     });
+
     this.students = this.db
       .collection('2019-20')
       .doc(this.course + '')
       .collection('students')
       .valueChanges();
+
+    this.dates = this.db
+      .collection('2019-20')
+      .doc(this.course + '')
+      .collection('attendance')
+      .valueChanges();
+
+    this.dates.subscribe(x => {
+      for (let i = 0; i < x.length; i++) {
+        const e = x[i];
+        const txt = e['day'];
+
+        this.datesList.push(txt);
+      }
+    });
+
+    console.log(this.datesList);
+
     //this.todayAttendance = db.collection('attendance').doc(today.getDate()+"-"+today.getMonth()+"-"+today.getFullYear()).collection('students').valueChanges();
     this.studentForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -61,26 +81,43 @@ export class StudentsListComponent {
 
   dateClass = (d: Date) => {
     const date = d.getDate();
-    console.log(date)
-    // Highlight the 1st and 20th day of each month.
-    return (date === 1 || date === 20) ? 'custom-date' : undefined;
-  }
+    const month = d.getMonth() + 1;
+    const yar = d.getFullYear();
 
-  addEvent = (type: string, event: MatDatepickerInputEvent<Date>) => {
-    if (type == "input"){
-      this.isBase = false;
-      let x  = event.value;
-      this.day.setTime(x.getTime());
-      this.students = this.db
-      .collection('2019-20')
-      .doc(this.course + '')
-      .collection('attendance')
-      .doc(`${this.day.getDate()}-${this.day.getMonth() + 1}-${this.day.getFullYear()}`)
-      .collection('students')
-      .valueChanges();
+    let ret = undefined;
+
+    for (let i = 0; i < this.datesList.length; i++) {
+      const txt = this.datesList[i];
+
+      const dateX = Number(txt.split('-')[0]);
+      const monthX = Number(txt.split('-')[1]);
+      const yarX = Number(txt.split('-')[2]);
+
+      if (date === dateX && month === monthX && yarX === yar) {
+        ret = 'custom-date';
+      }
     }
 
-  }
+    return ret;
+  };
+
+  addEvent = (type: string, event: MatDatepickerInputEvent<Date>) => {
+    if (type == 'input') {
+      this.isBase = false;
+      let x = event.value;
+      this.day.setTime(x.getTime());
+      this.students = this.db
+        .collection('2019-20')
+        .doc(this.course + '')
+        .collection('attendance')
+        .doc(
+          `${this.day.getDate()}-${this.day.getMonth() +
+            1}-${this.day.getFullYear()}`
+        )
+        .collection('students')
+        .valueChanges();
+    }
+  };
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
@@ -101,9 +138,9 @@ export class StudentsListComponent {
   darBase() {
     this.isBase = true;
     this.students = this.db
-    .collection('2019-20')
-    .doc(this.course + '')
-    .collection('students')
-    .valueChanges();
+      .collection('2019-20')
+      .doc(this.course + '')
+      .collection('students')
+      .valueChanges();
   }
 }
