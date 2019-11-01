@@ -17,11 +17,7 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "paths": {
-      "@Attendance-web/environments/*": ["./src/environments/*"],
-      "@Attendance-web/*": ["./src/app/*"]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
