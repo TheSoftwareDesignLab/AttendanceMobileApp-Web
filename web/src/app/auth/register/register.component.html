@@ -1,0 +1,51 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+    <mat-card-header>
+        <mat-card-title>Registrarse</mat-card-title>
+    </mat-card-header>
+    <br>
+        <mat-card-content>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email" name="email" />
+                <mat-error>
+                    {{ errorMessagesService.getFormErrorMessage(registerForm.get('email')) }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" formControlName="password" name="password" />
+                <mat-error>
+                    {{ errorMessagesService.getFormErrorMessage(registerForm.get('password')) }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Institución</mat-label>
+                <input matInput type="text" formControlName="institution" name="institution" />
+                <mat-error>
+                    {{ errorMessagesService.getFormErrorMessage(registerForm.get('institution')) }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Facultad</mat-label>
+                <input matInput type="text" formControlName="faculty" name="faculty" />
+                <mat-error>
+                    {{ errorMessagesService.getFormErrorMessage(registerForm.get('faculty')) }}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Departamento</mat-label>
+                <input matInput type="text" formControlName="department" name="department" />
+                <mat-error>
+                    {{ errorMessagesService.getFormErrorMessage(registerForm.get('department')) }}
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="submit" mat-flat-button color="primary" class="register-button">Crear Cuenta</button>
+            <br>
+            <div class="texto"> 
+                ¿Ya tienes una cuenta creada? Da click 
+                <u (click)="goToLogin()"> aquí para ir al login</u> 
+            </div>
+        </mat-card-actions>
+    </form>

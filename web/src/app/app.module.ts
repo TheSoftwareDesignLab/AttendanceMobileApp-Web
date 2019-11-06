@@ -17,6 +17,9 @@ import { StudentsListComponent } from './students-list/students-list.component';
 import { NewStudentDialogComponent } from './new-student-dialog/new-student-dialog.component';
 import { RandomQuizComponent } from './random-quiz/random-quiz.component'
 import { LoadingComponent } from './loading/loading.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -25,16 +28,21 @@ import { LoadingComponent } from './loading/loading.component';
     StudentsListComponent,
     NewStudentDialogComponent,
     RandomQuizComponent,
-    LoadingComponent
+    LoadingComponent,
+    SignInComponent,
+    RegisterComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,
+    SignInComponent,
+    RegisterComponent
   ],
   imports: [
     MatDatepickerModule,        
     MatNativeDateModule,    
     BrowserModule,
     AppRoutingModule,
+    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, 'my-app-name'),
     AngularFirestoreModule,
     ReactiveFormsModule,
@@ -49,7 +57,7 @@ import { LoadingComponent } from './loading/loading.component';
     MatIconModule,
     MatToolbarModule,
     MatTableModule,
-    MatDialogModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
