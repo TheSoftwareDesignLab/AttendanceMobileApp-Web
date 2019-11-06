@@ -3,6 +3,7 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   myControl = new FormControl();
   options: string[];
   filteredOptions: Observable<string[]>;
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private router: Router) {
     this.options = [];
     db.collection('professors').doc("m.linaresv@uniandes.edu.co").collection('courses').valueChanges().subscribe(course => {
       course.forEach(element =>{
@@ -28,6 +29,10 @@ export class AppComponent implements OnInit {
         startWith(''),
         map(value => this._filter(value))
       );
+  }
+
+  goTo(option) {
+    this.router.navigateByUrl(`/studentsList/${option}`);
   }
 
 

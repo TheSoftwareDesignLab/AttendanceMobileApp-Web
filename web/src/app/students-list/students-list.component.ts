@@ -1,7 +1,7 @@
 import { Component, OnInit, NgModule, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
@@ -11,8 +11,7 @@ import { NewStudentDialogComponent } from '../new-student-dialog/new-student-dia
 @Component({
   selector: 'app-students-list',
   templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./students-list.component.scss']
 })
 export class StudentsListComponent {
   title = 'Attendance List';
@@ -24,6 +23,8 @@ export class StudentsListComponent {
   db: AngularFirestore;
   isBase: boolean;
   datesList: String[];
+
+  datesSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,32 +38,30 @@ export class StudentsListComponent {
     this.db = dbp;
     this.isBase = true;
     this.day = new Date();
+    
     this.route.paramMap.subscribe(params => {
       this.course = params.get('courseID');
-    });
-
-    this.students = this.db
+      this.students = this.db
       .collection('2019-20')
       .doc(this.course + '')
       .collection('students')
       .valueChanges();
 
-    this.dates = this.db
-      .collection('2019-20')
-      .doc(this.course + '')
-      .collection('attendance')
-      .valueChanges();
+      this.dates = this.db
+        .collection('2019-20')
+        .doc(this.course + '')
+        .collection('attendance')
+        .valueChanges();
+      this.datesSubscription ? this.datesSubscription.unsubscribe(): '';
+      this.datesSubscription = this.dates.subscribe(x => {
+        for (let i = 0; i < x.length; i++) {
+          const e = x[i];
+          const txt = e['day'];
 
-    this.dates.subscribe(x => {
-      for (let i = 0; i < x.length; i++) {
-        const e = x[i];
-        const txt = e['day'];
-
-        this.datesList.push(txt);
-      }
+          this.datesList.push(txt);
+        }
+      });
     });
-
-    console.log(this.datesList);
 
     //this.todayAttendance = db.collection('attendance').doc(today.getDate()+"-"+today.getMonth()+"-"+today.getFullYear()).collection('students').valueChanges();
     this.studentForm = this.formBuilder.group({
@@ -118,12 +117,6 @@ export class StudentsListComponent {
         .valueChanges();
     }
   };
-
-  ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.course = params.get('courseID');
-    });
-  }
 
   openDialog() {
     this.dialog.open(NewStudentDialogComponent);

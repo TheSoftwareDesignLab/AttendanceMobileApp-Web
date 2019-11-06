@@ -16,6 +16,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { NewStudentDialogComponent } from './new-student-dialog/new-student-dialog.component';
 import { RandomQuizComponent } from './random-quiz/random-quiz.component'
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { RandomQuizComponent } from './random-quiz/random-quiz.component'
     LandingPageComponent,
     StudentsListComponent,
     NewStudentDialogComponent,
-    RandomQuizComponent
+    RandomQuizComponent,
+    LoadingComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,

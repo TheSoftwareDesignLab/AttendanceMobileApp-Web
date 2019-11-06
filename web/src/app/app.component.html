@@ -4,7 +4,7 @@
           <mat-form-field class="search-form-full-width" appearance="outline">
             <input type="text" placeholder="Search your course" aria-label="Course" matInput [formControl]="myControl" [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option" routerLink="/studentsList/{{option}}" >
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="goTo(option)">
                 {{option}}
               </mat-option>
             </mat-autocomplete>
@@ -17,3 +17,4 @@
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
+<app-loading></app-loading>
