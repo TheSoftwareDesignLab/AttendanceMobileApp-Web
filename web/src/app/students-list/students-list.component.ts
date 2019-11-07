@@ -11,7 +11,8 @@ import { NewStudentDialogComponent } from '../new-student-dialog/new-student-dia
 @Component({
   selector: 'app-students-list',
   templateUrl: './students-list.component.html',
-  styleUrls: ['./students-list.component.scss']
+  styleUrls: ['./students-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StudentsListComponent {
   title = 'Attendance List';
@@ -57,7 +58,6 @@ export class StudentsListComponent {
         for (let i = 0; i < x.length; i++) {
           const e = x[i];
           const txt = e['day'];
-
           this.datesList.push(txt);
         }
       });
@@ -91,8 +91,8 @@ export class StudentsListComponent {
       const dateX = Number(txt.split('-')[0]);
       const monthX = Number(txt.split('-')[1]);
       const yarX = Number(txt.split('-')[2]);
-
       if (date === dateX && month === monthX && yarX === yar) {
+        console.log(`${dateX},${monthX},${yarX} - ${date},${month},${yar}`)
         ret = 'custom-date';
       }
     }
