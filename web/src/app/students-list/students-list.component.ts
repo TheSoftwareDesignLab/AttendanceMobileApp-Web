@@ -92,7 +92,6 @@ export class StudentsListComponent {
       const monthX = Number(txt.split('-')[1]);
       const yarX = Number(txt.split('-')[2]);
       if (date === dateX && month === monthX && yarX === yar) {
-        console.log(`${dateX},${monthX},${yarX} - ${date},${month},${yar}`)
         ret = 'custom-date';
       }
     }
@@ -125,6 +124,12 @@ export class StudentsListComponent {
   randomQuiz() {
     this.route.paramMap.subscribe(params => {
       this.router.navigateByUrl(`randomQuiz/${params.get('courseID')}`);
+    });
+  }
+
+  openAdmin() {
+    this.route.paramMap.subscribe(params => {
+      this.router.navigateByUrl(`admin`);
     });
   }
 

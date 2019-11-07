@@ -11,7 +11,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatFormFieldModule,
-         MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule  } from '@angular/material/';
+         MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatGridListModule   } from '@angular/material/';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { NewStudentDialogComponent } from './new-student-dialog/new-student-dialog.component';
@@ -20,6 +20,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RegisterComponent } from './auth/register/register.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { RegisterComponent } from './auth/register/register.component';
     RandomQuizComponent,
     LoadingComponent,
     SignInComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminViewComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,
@@ -57,7 +59,8 @@ import { RegisterComponent } from './auth/register/register.component';
     MatIconModule,
     MatToolbarModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
