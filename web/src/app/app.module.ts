@@ -11,7 +11,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatFormFieldModule,
-         MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule, MatDatepickerModule, MatNativeDateModule, MatGridListModule   } from '@angular/material/';
+         MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule,
+         MatDatepickerModule, MatNativeDateModule, MatGridListModule,MatExpansionModule, MatListModule} from '@angular/material/';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { NewStudentDialogComponent } from './new-student-dialog/new-student-dialog.component';
@@ -60,7 +61,9 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     MatToolbarModule,
     MatTableModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatExpansionModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

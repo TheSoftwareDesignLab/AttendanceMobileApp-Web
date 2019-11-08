@@ -1,3 +1,17 @@
-mat-grid-tile {
-    background: lightblue;
-  }
+.mat-grid-tile {
+  background: #ffeb3b;
+}
+
+.configPanel {
+  height: 100%;
+  width: 100%;
+}
+
+.cardUser{
+  height: 100%;
+  width: 100%;
+}
+
+.opts-spacer {
+  flex: 1 1 auto;
+}
