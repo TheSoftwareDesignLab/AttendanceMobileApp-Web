@@ -22,6 +22,7 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RegisterComponent } from './auth/register/register.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-component/teacher-courses-view-component.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     LoadingComponent,
     SignInComponent,
     RegisterComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    TeacherCoursesViewComponentComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,

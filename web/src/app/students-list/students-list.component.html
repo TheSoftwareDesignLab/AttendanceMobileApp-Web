@@ -62,7 +62,7 @@
         <td>{{ item.code }}</td>
         <td>{{ item.email }}</td>
         <td>{{ item.name }}</td>
-        <td *ngIf="isBase">{{ item.assistancePercentaje + '%' }}</td>
+        <td *ngIf="isBase">{{ (item.assistancePercentage *100+'').substr(0,4) + '%' }}</td>
       </tr>
     </tbody>
   </table>
