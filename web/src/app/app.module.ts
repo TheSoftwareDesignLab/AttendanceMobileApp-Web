@@ -20,6 +20,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { RegisterComponent } from './auth/register/register.component';
+import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-component/teacher-courses-view-component.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { RegisterComponent } from './auth/register/register.component';
     RandomQuizComponent,
     LoadingComponent,
     SignInComponent,
-    RegisterComponent
+    RegisterComponent,
+    TeacherCoursesViewComponentComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,
