@@ -5,7 +5,6 @@ import {map, startWith} from 'rxjs/operators'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { FirebaseAuthService } from './auth/firebaseAuth.service';
 
 @Component({
@@ -17,6 +16,9 @@ export class AppComponent implements OnInit {
   myControl = new FormControl();
   options: string[];
   filteredOptions: Observable<string[]>;
+
+  isLoggedIn;
+
   constructor(private db: AngularFirestore, private router: Router,
     public dialog: MatDialog, private firebaseAuthService: FirebaseAuthService
     ) {
@@ -25,6 +27,10 @@ export class AppComponent implements OnInit {
       course.forEach(element =>{
         this.options.push(element.courseCode);
       })
+    });
+    this.firebaseAuthService.canActivate().subscribe( bool => {
+      console.log(this.firebaseAuthService.currentUser);
+      this.isLoggedIn = bool;
     });
   }
 
@@ -49,7 +55,10 @@ export class AppComponent implements OnInit {
 
   signInDialog() {
     this.firebaseAuthService.signIn();
-    // this.dialog.open(SignInComponent);
+  }
+
+  signOut() {
+    this.firebaseAuthService.signOut();
   }
   
 }

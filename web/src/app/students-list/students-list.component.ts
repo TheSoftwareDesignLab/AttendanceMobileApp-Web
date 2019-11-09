@@ -87,7 +87,7 @@ export class StudentsListComponent {
 
     for (let i = 0; i < this.datesList.length; i++) {
       const txt = this.datesList[i];
-
+      console.log(txt)
       const dateX = Number(txt.split('-')[0]);
       const monthX = Number(txt.split('-')[1]);
       const yarX = Number(txt.split('-')[2]);

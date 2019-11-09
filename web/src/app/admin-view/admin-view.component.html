@@ -1,131 +1,126 @@
-<mat-grid-list cols="3">
-  <mat-grid-tile [colspan]="1" class="configPanel">
-    <mat-card>
-      <mat-card-title>
+<div class="leftPanel">
+  <div class="panelTitle">
         Users
-      </mat-card-title>
-      <div>
-        <mat-accordion>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Professors
-              </mat-panel-title>
-              <mat-panel-description>
-                The professors on the app
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-list>
-              <div *ngFor="let item of proffessors | async" (click)="onSelect(item, 0)">
-                <mat-list-item>
-                  {{item.name}}
-                </mat-list-item>
-                <mat-divider></mat-divider>
-              </div>
-              <mat-toolbar-row>
-                <span class="opts-spacer"></span>
-                <button mat-raised-button color="accent" (click)="addProfessor()">
-                  add
-                </button>
-              </mat-toolbar-row>
-            </mat-list>
-          </mat-expansion-panel>
-          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Admins
-              </mat-panel-title>
-              <mat-panel-description>
-                The admins on the app
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-list>
-              <div *ngFor="let item of admins | async" (click)="onSelect(item, 1)">
-                <mat-list-item>
-                  {{item.name}}
-                </mat-list-item>
-                <mat-divider></mat-divider>
-              </div>
-              <mat-toolbar-row>
-                <span class="opts-spacer"></span>
-                <button mat-raised-button color="accent" (click)="addAdmin()">
-                  add
-                </button>
-              </mat-toolbar-row>
-            </mat-list>
-          </mat-expansion-panel>
-        </mat-accordion>
+  </div>
+  <mat-accordion  class="example-headers-align">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Professors
+        </mat-panel-title>
+        <mat-panel-description>
+          The professors on the app
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <span class="opts-spacer"></span>
+      <button mat-raised-button class="add" color="accent" (click)="addProfessor()">
+        add
+      </button>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <mat-list>
+        <div *ngFor="let item of proffessors | async" (click)="onSelect(item, 0)">
+          <mat-list-item>
+            {{item.name}}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-list>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Admins
+        </mat-panel-title>
+        <mat-panel-description>
+          The admins on the app
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <span class="opts-spacer"></span>
+      <button mat-raised-button class="add" color="accent" (click)="addAdmin()">
+        add
+      </button>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <mat-list>
+        <div *ngFor="let item of admins | async" (click)="onSelect(item, 1)">
+          <mat-list-item>
+            {{item.name}}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-list>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<div class="rightPanel">
+  <div *ngIf="userSelected">
+    <mat-card-title>{{selected.name}}</mat-card-title>
+    <br>
+    <mat-card-subtitle>{{selected.email}}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="selected.admin">Admin</mat-card-subtitle>
+    <div *ngIf="!selected.admin && selected.courses != []">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      </div>
-    </mat-card>
+        <ng-container matColumnDef="courseCode">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> course Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.courseCode}} </td>
+        </ng-container>
 
-  </mat-grid-tile>
-  <mat-grid-tile [colspan]="2" class="configPanel">
-    <div *ngIf="userSelected">
-      <mat-card class="cardUser">
-        <mat-card-title>{{selected.name}}</mat-card-title>
-        <mat-card-subtitle>{{selected.email}}</mat-card-subtitle>
-        <mat-card-subtitle *ngIf="selected.admin">Admin</mat-card-subtitle>
-        <div *ngIf="!selected.admin && selected.courses != []">
-          <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
 
-            <ng-container matColumnDef="courseCode">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> course Code </th>
-              <td mat-cell *matCellDef="let element"> {{element.courseCode}} </td>
-            </ng-container>
+        <ng-container matColumnDef="semester">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> semester </th>
+          <td mat-cell *matCellDef="let element"> {{element.semester}} </td>
+        </ng-container>
 
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-            </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> action </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-raised-button color="warn" (click)="deleteCourse(element)">
+              Delete
+            </button>
+          </td>
+        </ng-container>
 
-            <ng-container matColumnDef="semester">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> semester </th>
-              <td mat-cell *matCellDef="let element"> {{element.semester}} </td>
-            </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-            <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef> action </th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-raised-button color="warn" (click)="deleteCourse(element)">
-                  Delete
-                </button>
-              </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-          </table>
-          <mat-toolbar-row>
+      </table>
+      <mat-toolbar-row>
+        <span class="opts-spacer"></span>
+        <button mat-raised-button color="accent" (click)="addCourse(selected)">
+          add course
+        </button>
+      </mat-toolbar-row>
+    </div>
+    <mat-accordion class="mat-elevation-z8">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Actions
+          </mat-panel-title>
+          <mat-panel-description>
+            actions over the user {{selected.name}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-toolbar-row>
             <span class="opts-spacer"></span>
-            <button mat-raised-button color="accent" (click)="addCourse(selected)">
-              add course
+            <button mat-raised-button color="warn" (click)="deleteUser(selected)">
+              Delete user
             </button>
           </mat-toolbar-row>
-        </div>
-        <mat-accordion class="mat-elevation-z8">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Actions
-              </mat-panel-title>
-              <mat-panel-description>
-                actions over the user {{selected.name}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <mat-toolbar-row>
-                <span class="opts-spacer"></span>
-                <button mat-raised-button color="warn" (click)="deleteUser(selected)">
-                  Delete user
-                </button>
-              </mat-toolbar-row>
-          </mat-expansion-panel>
-        </mat-accordion>
-      </mat-card>
-    </div>
-    <div *ngIf="!userSelected" style="align-content: center;">
-      <p>Select a user</p>
-    </div>
-  </mat-grid-tile>
-</mat-grid-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div *ngIf="!userSelected" style="align-content: center;">
+    <p>Select a user</p>
+  </div>
+</div>

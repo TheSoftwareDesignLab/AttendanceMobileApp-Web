@@ -1,10 +1,33 @@
-.mat-grid-tile {
-  background: #ffeb3b;
+:host {
+  display: flex;
+  height: 60vh;
 }
 
-.configPanel {
+.leftPanel {
+  width: 40%;
   height: 100%;
-  width: 100%;
+  margin: 24px;
+  
+}
+
+.panelTitle {
+
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.add {
+  float: right;
+}
+
+.rightPanel {
+  width: 60%;
+  min-height: 100%;
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .cardUser{
@@ -14,4 +37,9 @@
 
 .opts-spacer {
   flex: 1 1 auto;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
 }

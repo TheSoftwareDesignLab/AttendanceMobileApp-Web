@@ -13,6 +13,7 @@ import * as firebase from 'firebase'
 export class FirebaseAuthService implements CanActivate {
     currentUser;
     provider;
+
     constructor(
         private firebaseAuth: AngularFireAuth,
         private database: AngularFirestore,
@@ -33,6 +34,8 @@ export class FirebaseAuthService implements CanActivate {
         // this.loadingSevice.startLoading();
         this.firebaseAuth.auth.onAuthStateChanged( user => {
             if (user) {
+                console.log(user)
+                this.currentUser= user;
                 // this.ngZone.run(() => {
                 //     this.loadingSevice.stopLoading();
                 //     this.currentUser = user;
@@ -71,13 +74,13 @@ export class FirebaseAuthService implements CanActivate {
                 if (user) {
                     return true;
                 } else {
-                    this.router.navigate(['/sign-in']);
+                    this.router.navigate(['/']);
                     return false;
                 }
             }),
             retry(1),
             catchError( err => {
-                this.router.navigate(['/sign-in']);
+                this.router.navigate(['/']);
                 return Observable.throw(err);
             })
         );

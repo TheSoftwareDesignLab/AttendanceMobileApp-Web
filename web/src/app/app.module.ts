@@ -12,15 +12,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatButtonModule, MatInputModule, MatCardModule, MatToolbarModule, MatFormFieldModule,
          MatAutocompleteModule, MatSelectModule, MatIconModule, MatTableModule, MatDialogModule,
-         MatDatepickerModule, MatNativeDateModule, MatGridListModule,MatExpansionModule, MatListModule} from '@angular/material/';
+         MatDatepickerModule, MatNativeDateModule, MatGridListModule,MatExpansionModule, MatListModule, MatPaginatorModule} from '@angular/material/';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { NewStudentDialogComponent } from './new-student-dialog/new-student-dialog.component';
 import { RandomQuizComponent } from './random-quiz/random-quiz.component'
 import { LoadingComponent } from './loading/loading.component';
-import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import { RegisterComponent } from './auth/register/register.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-component/teacher-courses-view-component.component';
 
@@ -32,15 +30,11 @@ import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-com
     NewStudentDialogComponent,
     RandomQuizComponent,
     LoadingComponent,
-    SignInComponent,
-    RegisterComponent,
     AdminViewComponent,
     TeacherCoursesViewComponentComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,
-    SignInComponent,
-    RegisterComponent
   ],
   imports: [
     MatDatepickerModule,        
@@ -65,7 +59,8 @@ import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-com
     MatDialogModule,
     MatGridListModule,
     MatExpansionModule,
-    MatListModule
+    MatListModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
