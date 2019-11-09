@@ -19,7 +19,8 @@ export class FirebaseAuthService implements CanActivate {
         private database: AngularFirestore,
         private loadingSevice: LoadingService,
         private router: Router,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private firestore: AngularFirestore 
     ) {
         this.provider =  new firebase.auth.OAuthProvider('microsoft.com');
 
@@ -31,24 +32,22 @@ export class FirebaseAuthService implements CanActivate {
             tenant: 'uniandes.edu.co'
         });
 
-        // this.loadingSevice.startLoading();
+        this.loadingSevice.startLoading();
         this.firebaseAuth.auth.onAuthStateChanged( user => {
             if (user) {
-                console.log(user)
-                this.currentUser= user;
-                // this.ngZone.run(() => {
-                //     this.loadingSevice.stopLoading();
-                //     this.currentUser = user;
-                //     this.router.navigate(['/gameForm']);
-                // });
+                this.ngZone.run(() => {
+                    this.currentUser = user;
+                });
             } else {
-                //  this.signOut();
+                this.signOut();
             }
         });
     }
 
     signOut() {
+        this.loadingSevice.stopLoading();
         this.firebaseAuth.auth.signOut();
+        this.router.navigate(['/']);
     }
 
     signIn() {
@@ -60,7 +59,6 @@ export class FirebaseAuthService implements CanActivate {
           // result.credential.accessToken
           // OAuth ID token can also be retrieved:
           // result.credential.idToken
-          console.log(result.user.displayName, result.user.email)
         })
         .catch(function(error) {
           // Handle error.
@@ -72,6 +70,22 @@ export class FirebaseAuthService implements CanActivate {
         return this.firebaseAuth.authState.pipe(
             map( user => {
                 if (user) {
+                    this.firestore.collection('admins').doc(this.currentUser.email).get().subscribe( res => {
+                        this.loadingSevice.stopLoading();
+                        if (res.exists) {
+                            this.router.navigate(['/admin']);
+                        } else {
+                            if (res.exists) {
+                                this.firestore.collection('professors').doc(this.currentUser.email).get().subscribe( res => {
+                                    this.router.navigate(['/']);
+                                } );
+                            } else {
+                                this.firestore.collection('studentList').doc(this.currentUser.email).get().subscribe( res => {
+                                    this.router.navigate(['/']);
+                                });
+                            }
+                        }
+                    });
                     return true;
                 } else {
                     this.router.navigate(['/']);

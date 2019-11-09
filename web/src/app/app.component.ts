@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   filteredOptions: Observable<string[]>;
 
   isLoggedIn;
+  currentUser;
 
   constructor(private db: AngularFirestore, private router: Router,
     public dialog: MatDialog, private firebaseAuthService: FirebaseAuthService
@@ -29,7 +30,7 @@ export class AppComponent implements OnInit {
       })
     });
     this.firebaseAuthService.canActivate().subscribe( bool => {
-      console.log(this.firebaseAuthService.currentUser);
+      this.currentUser = this.firebaseAuthService.currentUser;
       this.isLoggedIn = bool;
     });
   }

@@ -32,3 +32,18 @@
 router-outlet {
     height: 100%;
 }
+
+.signOut {
+    width: 10%;
+    float: right;
+    cursor: pointer;
+}
+
+.barContainer {
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    width: 25vw;
+    overflow: hidden;
+    font-size: 15px;;
+}

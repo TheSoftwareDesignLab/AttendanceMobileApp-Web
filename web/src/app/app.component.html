@@ -14,9 +14,12 @@
       <button *ngIf="!isLoggedIn" mat-raised-button color="accent" (click)="signInDialog()">
           Sign in
       </button>
-      <button *ngIf="isLoggedIn" mat-raised-button color="accent" (click)="signOut()">
-        Sign Out
-    </button>
+      <ng-container *ngIf="isLoggedIn">
+        <div class="barContainer">
+          {{currentUser.displayName}}
+          <img src="assets/signOut.png" class="signOut" (click)="signOut()" />
+        </div>
+      </ng-container>
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
