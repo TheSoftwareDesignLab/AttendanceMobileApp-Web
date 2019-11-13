@@ -1,0 +1,15 @@
+<form [formGroup]="semesterForm" (ngSubmit)="newSemester()">
+    <h1 style="text-align:center;">Add new Semester</h1>
+    <div class="flex-container" id="formContent">
+        <mat-form-field appearance="outline" class="form-inputs">
+            <mat-label>Semester</mat-label>
+            <input matInput formControlName="semester" required>
+            <mat-error>
+                {{errorMessagesService.getFormErrorMessage(semesterForm.controls.semester)}}
+            </mat-error>
+        </mat-form-field>
+        <div class="form-actions">
+            <button mat-raised-button color="accent" type="primary">Create</button>
+        </div>
+    </div>
+</form>

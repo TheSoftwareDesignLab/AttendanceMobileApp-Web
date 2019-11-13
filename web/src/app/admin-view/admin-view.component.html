@@ -1,8 +1,8 @@
 <div class="leftPanel">
   <div class="panelTitle">
-        Users
+    Users
   </div>
-  <mat-accordion  class="example-headers-align">
+  <mat-accordion class="example-headers-align">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -49,6 +49,38 @@
         <div *ngFor="let item of admins | async" (click)="onSelect(item, 1)">
           <mat-list-item>
             {{item.name}}
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-list>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <br>
+  <div class="panelTitle">
+    Semesters
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          semesters
+        </mat-panel-title>
+        <mat-panel-description>
+          every semester registered
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <span class="opts-spacer"></span>
+      <button mat-raised-button class="add" color="accent" (click)="addSemester()">
+        add
+      </button>
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <mat-list>
+        <div *ngFor="let item of semesters">
+          <mat-list-item>
+            {{item}}
           </mat-list-item>
           <mat-divider></mat-divider>
         </div>
@@ -112,11 +144,11 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-toolbar-row>
-            <span class="opts-spacer"></span>
-            <button mat-raised-button color="warn" (click)="deleteUser(selected)">
-              Delete user
-            </button>
-          </mat-toolbar-row>
+          <span class="opts-spacer"></span>
+          <button mat-raised-button color="warn" (click)="deleteUser(selected)">
+            Delete user
+          </button>
+        </mat-toolbar-row>
       </mat-expansion-panel>
     </mat-accordion>
   </div>

@@ -21,6 +21,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-component/teacher-courses-view-component.component';
+import { NewCourseDialogComponent } from './new-course-dialog/new-course-dialog.component';
+import { NewSemesterDialogComponent } from './new-semester-dialog/new-semester-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +33,14 @@ import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-com
     RandomQuizComponent,
     LoadingComponent,
     AdminViewComponent,
-    TeacherCoursesViewComponentComponent
+    TeacherCoursesViewComponentComponent,
+    NewCourseDialogComponent,
+    NewSemesterDialogComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,
+    NewCourseDialogComponent,
+    NewSemesterDialogComponent
   ],
   imports: [
     MatDatepickerModule,        
