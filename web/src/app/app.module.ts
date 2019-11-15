@@ -23,6 +23,7 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
 import { TeacherCoursesViewComponentComponent } from './teacher-courses-view-component/teacher-courses-view-component.component';
 import { NewCourseDialogComponent } from './new-course-dialog/new-course-dialog.component';
 import { NewSemesterDialogComponent } from './new-semester-dialog/new-semester-dialog.component';
+import { NewProfessorDialogComponent } from './new-professor-dialog/new-professor-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,14 @@ import { NewSemesterDialogComponent } from './new-semester-dialog/new-semester-d
     AdminViewComponent,
     TeacherCoursesViewComponentComponent,
     NewCourseDialogComponent,
-    NewSemesterDialogComponent
+    NewSemesterDialogComponent,
+    NewProfessorDialogComponent
   ],
   entryComponents:[
     NewStudentDialogComponent,
     NewCourseDialogComponent,
-    NewSemesterDialogComponent
+    NewSemesterDialogComponent,
+    NewProfessorDialogComponent
   ],
   imports: [
     MatDatepickerModule,        

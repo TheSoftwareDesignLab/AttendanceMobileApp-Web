@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material';
 import { NewCourseDialogComponent } from '../new-course-dialog/new-course-dialog.component';
 import Swal from 'sweetalert2';
 import { NewSemesterDialogComponent } from '@Attendance-web/new-semester-dialog/new-semester-dialog.component';
-
+import { NewProfessorDialogComponent } from '@Attendance-web/new-professor-dialog/new-professor-dialog.component';
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
@@ -90,7 +90,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   }
 
   addProfessor = () => {
-    console.log('addProfessor', 'por implementar');
+    this.dialog.open(NewProfessorDialogComponent);
   };
 
   addAdmin = () => {

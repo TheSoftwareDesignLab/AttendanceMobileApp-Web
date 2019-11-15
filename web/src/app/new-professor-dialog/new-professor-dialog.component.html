@@ -1,0 +1,25 @@
+<form [formGroup]="professorForm" (ngSubmit)="newProfessor()">
+    <h1 style="text-align:center;">Add a new professor</h1>
+    <div class="flex-container" id="formContent">
+  
+      <mat-form-field appearance="outline" class="form-inputs">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error>
+          {{errorMessagesService.getFormErrorMessage(professorForm.controls.name)}}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="form-inputs">
+        <mat-label>eMail</mat-label>
+        <input matInput formControlName="email"  email required>
+        <mat-error>
+          {{errorMessagesService.getFormErrorMessage(professorForm.controls.email)}}
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+    <div class="form-actions">
+      <button mat-raised-button color="accent" type="primary">Create</button>
+    </div>
+  </form>
