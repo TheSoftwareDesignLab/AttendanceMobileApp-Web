@@ -27,6 +27,10 @@ export class NewCourseDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  onNoClick() {
+    this.dialogRef.close();
+  }
+
   nuevoCurso = () =>{
     if (this.courseForm.valid) {
       let data = {

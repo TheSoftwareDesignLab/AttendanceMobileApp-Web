@@ -25,6 +25,10 @@ export class NewSemesterDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  onNoClick() {
+    this.dialogRef.close();
+  }
+
   newSemester = () =>{
     this.db.collection(this.semesterForm.value.semester);
     this.data["semesters"].push(this.semesterForm.value.semester);

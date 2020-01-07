@@ -26,6 +26,11 @@ export class NewProfessorDialogComponent implements OnInit {
   ngOnInit() {
   }
 
+  onNoClick() {
+    this.dialogRef.close();
+  }
+
+
   newProfessor = () => {
     if (this.professorForm.valid) {
     }else{

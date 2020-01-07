@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ErrorMessagesService } from '../errors/error-messages.service';
@@ -13,13 +13,17 @@ import { ErrorMessagesService } from '../errors/error-messages.service';
 export class NewStudentDialogComponent {
   studentForm: FormGroup;
 
-  constructor(private db: AngularFirestore, private formBuilder: FormBuilder, public errorMessagesService: ErrorMessagesService) {
+  constructor(private db: AngularFirestore, private formBuilder: FormBuilder, public errorMessagesService: ErrorMessagesService, public dialogRef: MatDialogRef<NewStudentDialogComponent>) {
     const today = new Date();
     this.studentForm = this.formBuilder.group({
       'name': ['', Validators.required],
       'code': ['', Validators.required],
       'mac' : ['', [Validators.required, Validators.minLength(17),Validators.maxLength(17)]]
     });
+  }
+
+  onNoClick() {
+    this.dialogRef.close();
   }
 
   nuevoEstudiante() {
